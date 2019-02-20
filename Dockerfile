@@ -25,7 +25,7 @@ RUN apt-get install -y curl grep sed dpkg && \
     rm tini.deb && \
     apt-get clean
 
-RUN add-apt-repository http://downloads.skewed.de/apt/strech strech main && \
+RUN add-apt-repository http://downloads.skewed.de/apt/stretch && \
     apt-get update && apt-get install -y --allow-unauthenticated python3-graph-tool && \
 	apt-get install -y --allow-unauthenticated libcairo2-dev libjpeg-dev libgif-dev
 	
