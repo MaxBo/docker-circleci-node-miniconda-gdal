@@ -26,7 +26,7 @@ RUN apt-get install -y curl grep sed dpkg && \
 
 RUN add-apt-repository http://downloads.skewed.de/apt/strech strech main && \
     apt-get update && apt-get install -y --allow-unauthenticated python3-graph-tool && \
-	apt-get install libcairo2-dev libjpeg-dev libgif-dev
+	apt-get install -y --allow-unauthenticated libcairo2-dev libjpeg-dev libgif-dev
 	
 RUN chown -R circleci /opt/conda
 
