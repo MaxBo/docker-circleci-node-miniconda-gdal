@@ -8,7 +8,6 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 RUN apt-get update --fix-missing && \
     apt-get install -y apt-utils && \
-    apt-get install -y software-properties-common && \
     apt-get install -y wget bzip2 ca-certificates \
     libglib2.0-0 libxext6 libsm6 libxrender1 \
     git mercurial subversion
@@ -25,10 +24,6 @@ RUN apt-get install -y curl grep sed dpkg && \
     rm tini.deb && \
     apt-get clean
 
-RUN add-apt-repository http://downloads.skewed.de/apt/stretch && \
-    apt-get update && apt-get install -y --allow-unauthenticated python3-graph-tool && \
-	apt-get install -y --allow-unauthenticated libcairo2-dev libjpeg-dev libgif-dev
-	
 RUN chown -R circleci /opt/conda
 
 USER circleci
