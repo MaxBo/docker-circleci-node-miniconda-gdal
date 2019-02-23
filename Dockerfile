@@ -8,14 +8,14 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 RUN apt-get update --fix-missing && \
     apt-get install -y apt-utils && \
+    apt-get install -y software-properties-common && \
     apt-get install -y wget bzip2 ca-certificates \
     libglib2.0-0 libxext6 libsm6 libxrender1 \
     git mercurial subversion
 
-RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
-    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.3.27-Linux-x86_64.sh -O ~/miniconda.sh && \
-    /bin/bash ~/miniconda.sh -b -p /opt/conda && \
-    rm ~/miniconda.sh
+RUN echo "Installing GDAL 2..." && \
+    apt-get install -y python3-gdal python3-pyproj binutils libproj-dev gdal-bin libgdal-dev libgeos-dev
+
 
 RUN apt-get install -y curl grep sed dpkg && \
     TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
@@ -24,14 +24,35 @@ RUN apt-get install -y curl grep sed dpkg && \
     rm tini.deb && \
     apt-get clean
 
-RUN chown -R circleci /opt/conda
+RUN add-apt-repository http://downloads.skewed.de/apt/stretch && \
+    apt-get update && \
+    apt-get install -y --allow-unauthenticated python3-graph-tool && \
+    apt-get install -y --allow-unauthenticated libcairo2-dev libjpeg-dev libgif-dev gtk+3.0 libgirepository1.0-dev
 
+RUN apt-get install -y vim
+
+RUN chown -R circleci /usr/local
 USER circleci
 
-ENV PATH /opt/conda/bin:$CIRCLECIPATH
-RUN echo $PATH
-RUN conda create -y -c conda-forge -n repair python=3.6 gdal=2.1 pyproj
-ENV PATH /opt/conda/envs/repair/bin:/opt/conda/envs/repair/lib:$PATH
-ENV CONDA_PREFIX /opt/conda/envs/repair
-ENV GDAL_DATA $CONDA_PREFIX/share/gdal
-RUN echo $PATH
+
+RUN cd /home/circleci && \
+    git clone https://github.com/MaxBo/REPAiR-Web.git repairweb && \
+    cd repairweb && \
+    echo scipy >> requirements-dev.txt && \
+    echo pycairo >> requirements-dev.txt && \
+    echo pygobject >> requirements-dev.txt && \
+    python -m pip install --upgrade pip
+RUN cd /home/circleci/repairweb && \
+    pip install -r requirements-dev.txt
+RUN export GDALVERSION=$(gdalinfo --version | awk -F'[, ]' '{print $2}') && pip install pygdal==$GDALVERSION.*
+
+RUN export dp=/usr/lib/python3/dist-packages && \
+    ln -s $dp/graph_tool  $dp/gdal* /usr/local/lib/python3.6/site-packages/
+
+RUN export ul=/usr/lib && \
+    ln -s $ul/libgdal.so $ul/libblas.so $ul/liblapack.so $ul/libcgraph.so /usr/local/lib/
+
+RUN export lg=/usr/lib/x86_64-linux-gnu && \
+    ln -s $lg/libgeos_c.so  $lg/libgeotiff.so $lg/libxml2.so $lg/libtiff.so $lg/libpng.so $lg/libspatialite.so $lg/libsqlite3.so $lg/libproj.so $lg/libpq.so /usr/local/lib/
+	
+ENV GDAL_DATA /usr/share/gdal/2.1
