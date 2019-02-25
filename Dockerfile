@@ -40,10 +40,11 @@ USER circleci
 RUN cd /home/circleci && \
     git clone https://github.com/MaxBo/REPAiR-Web.git repairweb && \
     cd repairweb && \
-    echo scipy >> requirements-dev.txt && \
-    echo pycairo >> requirements-dev.txt && \
-    echo pygobject >> requirements-dev.txt && \
-    python -m pip install --upgrade pip
+    python -m pip install --upgrade pip && \
+	pip install scipy && \
+    pip install pycairo && \
+    pip install pygobject
+
 RUN cd /home/circleci/repairweb && \
     pip install -r requirements-dev.txt
 RUN export GDALVERSION=$(gdalinfo --version | awk -F'[, ]' '{print $2}') && pip install pygdal==$GDALVERSION.*
