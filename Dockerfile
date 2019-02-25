@@ -29,6 +29,8 @@ RUN add-apt-repository http://downloads.skewed.de/apt/stretch && \
     apt-get install -y --allow-unauthenticated python3-graph-tool && \
     apt-get install -y --allow-unauthenticated libcairo2-dev libjpeg-dev libgif-dev gtk+3.0 libgirepository1.0-dev
 
+RUN apt-get install -y sqlite3 libsqlite3-mod-spatialite spatialite-bin
+
 RUN apt-get install -y vim
 
 RUN chown -R circleci /usr/local
@@ -50,9 +52,9 @@ RUN export dp=/usr/lib/python3/dist-packages && \
     ln -s $dp/graph_tool  $dp/gdal* /usr/local/lib/python3.6/site-packages/
 
 RUN export ul=/usr/lib && \
-    ln -s $ul/libgdal.so $ul/libblas.so $ul/liblapack.so $ul/libcgraph.so /usr/local/lib/
+    ln -s $ul/libgdal.so $ul/libblas.so $ul/liblapack.so $ul/libcgraph.so /usr/local/lib/ 
 
 RUN export lg=/usr/lib/x86_64-linux-gnu && \
-    ln -s $lg/libgeos_c.so  $lg/libgeotiff.so $lg/libxml2.so $lg/libtiff.so $lg/libpng.so $lg/libspatialite.so $lg/libsqlite3.so $lg/libproj.so $lg/libpq.so /usr/local/lib/
+    ln -s $lg/libgeos_c.so  $lg/libgeotiff.so $lg/libxml2.so $lg/libtiff.so $lg/libpng.so $lg/mod_spatialite.so $lg/libspatialite.so $lg/libsqlite3.so $lg/libproj.so $lg/libpq.so /usr/local/lib/
 	
 ENV GDAL_DATA /usr/share/gdal/2.1
