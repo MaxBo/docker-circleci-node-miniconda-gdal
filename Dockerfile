@@ -33,6 +33,8 @@ RUN apt-get install -y sqlite3 libsqlite3-mod-spatialite spatialite-bin
 
 RUN apt-get install -y vim
 
+RUN apt-get install -y libpq-dev 
+
 RUN chown -R circleci /usr/local
 USER circleci
 
