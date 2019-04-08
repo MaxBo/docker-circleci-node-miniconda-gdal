@@ -10,6 +10,7 @@ RUN apt-get update --fix-missing && \
     apt-get install -y apt-utils && \
     apt-get install -y wget bzip2 ca-certificates \
     libglib2.0-0 libxext6 libsm6 libxrender1 \
+    libpq-dev \
     git mercurial subversion
 
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
@@ -30,7 +31,7 @@ USER circleci
 
 ENV PATH /opt/conda/bin:$CIRCLECIPATH
 RUN echo $PATH
-RUN conda create -y -c conda-forge -n repair python=3.6 gdal=2.1 pyproj psycopg2
+RUN conda create -y -c conda-forge -n repair python=3.6 gdal=2.1 pyproj
 ENV PATH /opt/conda/envs/repair/bin:/opt/conda/envs/repair/lib:$PATH
 ENV CONDA_PREFIX /opt/conda/envs/repair
 ENV GDAL_DATA $CONDA_PREFIX/share/gdal
