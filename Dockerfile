@@ -35,6 +35,8 @@ RUN apt-get install -y vim
 
 RUN apt-get install -y libpq-dev 
 
+RUN apt-get install -y gettext
+
 RUN chown -R circleci /usr/local
 USER circleci
 
@@ -60,6 +62,5 @@ RUN export ul=/usr/lib && \
 RUN export lg=/usr/lib/x86_64-linux-gnu && \
     ln -s $lg/libgeos_c.so  $lg/libgeotiff.so $lg/libxml2.so $lg/libtiff.so $lg/libpng.so $lg/mod_spatialite.so $lg/libspatialite.so $lg/libsqlite3.so $lg/libproj.so $lg/libpq.so /usr/local/lib/
 
-RUN apt-get install -y gettext
 
 ENV GDAL_DATA /usr/share/gdal/2.1
