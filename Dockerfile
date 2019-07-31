@@ -24,10 +24,11 @@ RUN apt-get install -y curl grep sed dpkg && \
     rm tini.deb && \
     apt-get clean
 
-RUN add-apt-repository http://downloads.skewed.de/apt/buster && \
-    apt-get update --allow-unauthenticated && \
-    apt-get install -y --allow-unauthenticated python3-graph-tool && \
-    apt-get install -y --allow-unauthenticated libcairo2-dev libjpeg-dev libgif-dev gtk+3.0 libgirepository1.0-dev
+RUN wget -O- http://downloads.skewed.de/apt/buster/dists/buster/Release.gpg | apt-key add - && \
+    add-apt-repository http://downloads.skewed.de/apt/buster && \
+    apt-get update && \
+    apt-get install -y python3-graph-tool && \
+    apt-get install -y libcairo2-dev libjpeg-dev libgif-dev gtk+3.0 libgirepository1.0-dev
 
 RUN sudo apt-get install -y sqlite3 libsqlite3-mod-spatialite spatialite-bin
 
