@@ -29,7 +29,8 @@ RUN add-apt-repository http://downloads.skewed.de/apt/stretch && \
     apt-get install -y --allow-unauthenticated python3-graph-tool && \
     apt-get install -y --allow-unauthenticated libcairo2-dev libjpeg-dev libgif-dev gtk+3.0 libgirepository1.0-dev
 
-RUN apt-get install -y sqlite3 libsqlite3-mod-spatialite spatialite-bin
+RUN sudo add-apt-repository http://deb.debian.org/debian/stretch-backports && \
+    apt-get install -y -t stretch-backports sqlite3 libsqlite3-mod-spatialite spatialite-bin
 
 RUN apt-get install -y vim
 
