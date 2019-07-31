@@ -25,7 +25,7 @@ RUN apt-get install -y curl grep sed dpkg && \
     apt-get clean
 
 RUN add-apt-repository http://downloads.skewed.de/apt/buster && \
-    apt-get update && \
+    apt-get update --allow-unauthenticated && \
     apt-get install -y --allow-unauthenticated python3-graph-tool && \
     apt-get install -y --allow-unauthenticated libcairo2-dev libjpeg-dev libgif-dev gtk+3.0 libgirepository1.0-dev
 
