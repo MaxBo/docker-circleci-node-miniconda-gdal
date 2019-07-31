@@ -24,7 +24,8 @@ RUN apt-get install -y curl grep sed dpkg && \
     rm tini.deb && \
     apt-get clean
 
-RUN wget -O- http://downloads.skewed.de/apt/buster/dists/buster/Release.gpg | apt-key add - && \
+RUN gpg --keyserver keyserver.ubuntu.com --recv-keys 7A80C8ED4FCCBE09 && \
+    wget -O- http://downloads.skewed.de/apt/buster/dists/buster/Release.gpg | apt-key add - && \
     add-apt-repository http://downloads.skewed.de/apt/buster && \
     apt-get update && \
     apt-get install -y python3-graph-tool && \
