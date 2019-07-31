@@ -1,4 +1,4 @@
-FROM circleci/python:3.6-stretch-node-browsers
+FROM circleci/python:3.6-buster-node-browsers
 
 ENV CIRCLECIPATH $PATH
 
@@ -24,13 +24,12 @@ RUN apt-get install -y curl grep sed dpkg && \
     rm tini.deb && \
     apt-get clean
 
-RUN add-apt-repository http://downloads.skewed.de/apt/stretch && \
+RUN add-apt-repository http://downloads.skewed.de/apt/buster && \
     apt-get update && \
     apt-get install -y --allow-unauthenticated python3-graph-tool && \
     apt-get install -y --allow-unauthenticated libcairo2-dev libjpeg-dev libgif-dev gtk+3.0 libgirepository1.0-dev
 
-RUN sudo add-apt-repository http://deb.debian.org/debian/stretch-backports && \
-    apt-get install -y -t stretch-backports sqlite3 libsqlite3-mod-spatialite spatialite-bin
+RUN sudo apt-get install -y sqlite3 libsqlite3-mod-spatialite spatialite-bin
 
 RUN apt-get install -y vim
 
