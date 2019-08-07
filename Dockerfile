@@ -27,7 +27,10 @@ RUN apt-get install -y curl grep sed dpkg && \
 RUN add-apt-repository http://downloads.skewed.de/apt/stretch && \
     apt-get update && \
     apt-get install -y --allow-unauthenticated python3-graph-tool && \
-    apt-get install -y --allow-unauthenticated libcairo2-dev libjpeg-dev libgif-dev gtk+3.0 libgirepository1.0-dev
+    apt-get install -y --allow-unauthenticated libcairo2-dev libjpeg-dev libgif-dev libgirepository1.0-dev
+
+# there appeared a dependency conflict when installing gtk3.0 in Debian stretch, so we skip this here.
+# RUN apt-get install -y --allow-unauthenticated gtk+3.0
 
 RUN apt-get install -y sqlite3 libsqlite3-mod-spatialite spatialite-bin
 
