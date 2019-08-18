@@ -1,4 +1,4 @@
-FROM circleci/python:3.6-buster-node-browsers
+FROM circleci/python:3.7-buster-node-browsers
 
 ENV CIRCLECIPATH $PATH
 
@@ -56,7 +56,7 @@ RUN cd /home/circleci/repairweb && \
 RUN export GDALVERSION=$(gdalinfo --version | awk -F'[, ]' '{print $2}') && pip install pygdal==$GDALVERSION.*
 
 RUN export dp=/usr/lib/python3/dist-packages && \
-    ln -s $dp/graph_tool  $dp/gdal* /usr/local/lib/python3.6/site-packages/
+    ln -s $dp/graph_tool  $dp/gdal* /usr/local/lib/python3.7/site-packages/
 
 RUN export ul=/usr/lib && \
     ln -s $ul/libgdal.so $ul/libblas.so $ul/liblapack.so $ul/libcgraph.so /usr/local/lib/ 
@@ -65,4 +65,4 @@ RUN export lg=/usr/lib/x86_64-linux-gnu && \
     ln -s $lg/libgeos_c.so  $lg/libgeotiff.so $lg/libxml2.so $lg/libtiff.so $lg/libpng.so $lg/mod_spatialite.so $lg/libspatialite.so $lg/libsqlite3.so $lg/libproj.so $lg/libpq.so /usr/local/lib/
 
 
-ENV GDAL_DATA /usr/share/gdal/2.1
+ENV GDAL_DATA /usr/share/gdal
