@@ -24,7 +24,8 @@ RUN apt-get install -y curl grep sed dpkg && \
     rm tini.deb && \
     apt-get clean
 
-RUN add-apt-repository http://downloads.skewed.de/apt/dists/stretch && \
+RUN apt-key adv --keyserver keys.openpgp.org --recv-key 612DEFB798507F25 && \
+    add-apt-repository "deb [ arch=amd64 ] https://downloads.skewed.de/apt $(lsb_release -cs) main" && \
     apt-get update && \
     apt-get install -y --allow-unauthenticated python3-graph-tool && \
     apt-get install -y --allow-unauthenticated libcairo2-dev libjpeg-dev libgif-dev libgirepository1.0-dev
