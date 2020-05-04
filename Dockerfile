@@ -26,7 +26,7 @@ RUN apt-get install -y curl grep sed dpkg && \
 
 RUN gpg --keyserver keyserver.ubuntu.com --recv-keys 7A80C8ED4FCCBE09 && \
     gpg --export 7A80C8ED4FCCBE09 | apt-key add - && \
-    add-apt-repository http://downloads.skewed.de/apt/buster && \
+    add-apt-repository http://downloads.skewed.de/apt/dists/buster && \
     apt-get update && \
     apt-get install -y python3-graph-tool && \
     apt-get install -y libcairo2-dev libjpeg-dev libgif-dev gtk+3.0 libgirepository1.0-dev
