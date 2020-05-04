@@ -38,7 +38,9 @@ RUN apt-get install -y vim
 
 RUN apt-get install -y libpq-dev 
 
-RUN apt-get install -y gettext
+RUN apt-get install -y gettext imagemagick ghostscript
+
+RUN sed -i -e '/pattern\=\"PDF\"/s/\(^.*$\)/<!--\1-->/' /etc/ImageMagick-6/policy.xml
 
 RUN chown -R circleci /usr/local
 USER circleci
