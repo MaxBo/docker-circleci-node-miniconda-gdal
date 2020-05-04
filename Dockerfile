@@ -37,7 +37,7 @@ RUN apt-get install -y vim
 
 RUN apt-get install -y libpq-dev 
 
-RUN apt-get install -y gettext
+RUN apt-get install -y gettext imagemagick ghostscript
 
 RUN chown -R circleci /usr/local
 USER circleci
